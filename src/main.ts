@@ -1,21 +1,50 @@
+import { app, BrowserWindow, Menu } from 'electron';
 
+let mainWindow: any;
 
-import { app, BrowserWindow } from 'electron';
-
-// display main window
-function createWindow () {
-  const options: Electron.BrowserWindowConstructorOptions = {
+const createWindow = () => {
+    mainWindow = new BrowserWindow({
     width: 500,
     height: 200,
     webPreferences: {
-      nodeIntegration: true,  // Node 機能の使用を許可
+      nodeIntegration: true,
       contextIsolation: false
-    
-    }
-  }
-  const win = new BrowserWindow(options);
-  win.loadFile('public/index.html');
-}
+    },
+  });
 
-// Electron の初期化が完了したらウィンドウを作成
-app.whenReady().then(createWindow);
+  //open dev tool
+  mainWindow.webContents.openDevTools({ mode: 'detach' });
+
+  mainWindow.loadFile('public/index.html');
+};
+
+
+app.whenReady().then(async () => {
+  //create main window
+  createWindow();
+  //build menu from template
+  const mainMenu = Menu.buildFromTemplate(mainMenuTemplate);
+  //insert menu
+  Menu.setApplicationMenu(mainMenu);
+
+});
+
+app.once('window-all-closed', () => app.quit);
+
+const mainMenuTemplate = [
+  {
+    label: "la",
+  },
+  {
+    label: "File",
+    submenu: [
+      {
+        label: "Quit",
+        accelerator: process.platform == "darwin" ? "Command+Q" : "Ctrl+Q", //mac for darwin
+        click() {
+          app.quit(); //control Q
+        },
+      },
+    ],
+  },
+];
