@@ -1,6 +1,7 @@
 import { app, BrowserWindow, Menu } from 'electron';
 
 let mainWindow: any;
+let subWindow: any; //todo this will be the settings window
 
 const createWindow = () => {
     mainWindow = new BrowserWindow({
