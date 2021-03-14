@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Hello Electron!</title>
+    <link rel="stylesheet" href="./bootstrap.min.css">
+
+
+    <!-- https://electronjs.org/docs/tutorial/security#csp-meta-tag -->
+    <meta http-equiv="Content-Security-Policy"
+          content="script-src 'self' 'unsafe-inline';" />
+  </head>
+  <body>
+    <div id="test"></div>
+    <div id="radioButton"></div>
+    <script>require('../build/renderer.js');</script>
+  </body>
+</html>
+
+
+<!--
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Hello Electron!</title>
+    <meta http-equiv="Content-Security-Policy"
+          content="script-src 'self' 'unsafe-inline';" />
+  </head>
+  <body>
+    <h1>Hello Electron!</h1>
+    <ul>
+      <li>Node ver: <script>document.write(process.versions.node)</script>
+      <li>Chrome ver: <script>document.write(process.versions.chrome)</script>
+      <li>Electron ver: <script>document.write(process.versions.electron)</script>.
+    </ul>
+  </body>
+</html>
+
+-->

@@ -1,0 +1,73 @@
+---------------------------------------
+instruction
+---------------------------------------
+npm install
+npm start 
+
+
+before checking in remove these folders:
+- node_modules
+- build 
+
+
+---------------------------------------
+personal note 
+---------------------------------------
+
+npm init -y
+npm install electron --save-dev
+
+update package.jason 
+update main.js
+
+for "process" to work
+    include
+    
+    webPreferences: {
+      nodeIntegration: true, // Node 機能の使用を許可
+      contextIsolation: false,
+    },
+
+
+myapp/
+  +-- build/         # トランスパイル後の .js ファイルを格納
+  +-- src/           # .ts ファイルを格納
+  +-- public/        # そのままパッケージングするもの
+  |     +-- index.html
+  +-- package.json   # Node.js 用設定ファイル
+  +-- tsconfig.json  # TypeScript 用設定ファイル
+
+
+npm install typescript --save-dev
+npm install @types/node --save-dev
+
+create main.ts and index.html
+npm start
+
+npm install --save react react-dom
+
+
+### src/components/Hello.tsx 
+  export class Hello extends React.Component<HelloProps> {
+    public render(): React.ReactNode {
+      const name = this.props.name ?? 'Mr. Unknown';
+      return (
+        <h1>Hello {name} in Electron</h1>
+      );
+    }
+  }
+
+### src/renderer.tsx
+  ReactDOM.render(
+    <Hello />,
+    document.querySelector('#root')
+  );
+### public/index.html
+    <body>
+      <div id="root"></div>
+      <script>require('../build/renderer.js');</script>
+### src/main.ts
+  function createWindow () {
+    win.loadFile('public/index.html');
+
+
