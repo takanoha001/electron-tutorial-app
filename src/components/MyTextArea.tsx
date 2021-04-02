@@ -5,7 +5,8 @@ export default class MyTextarea extends Component <any, any>{
     super(props);
 
     this.state = {
-      memo: "React is interesting",
+      memo: this.props.greeting,
+
     };
     this.handleChange = this.handleChange.bind(this);
     this.show = this.show.bind(this);

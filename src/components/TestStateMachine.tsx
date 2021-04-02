@@ -1,5 +1,8 @@
 import React, { Component } from "react";
+import { handleInitialize, JackdVersion } from "../Lib";
+import { ChildProcessWithoutNullStreams } from 'child_process';
 
+import MyTextArea from "./MyTextArea";
 
 const States = {
   INIT: 0,
@@ -8,13 +11,28 @@ const States = {
   FIN: 3,
 };
 
-export default class TestStateMachine extends Component {
+ 
+
+
+//const outputLogRef = React.useRef<HTMLTextAreaElement>(null);
+let outputLogRef = React.createRef<HTMLTextAreaElement>();
+ 
+
+
+export default class TestStateMachine extends Component {  
   state = {
     current: States.INIT,
-  };
+    textAreaValue: "init",
+    greeting:'hello from test machine'
+  }; 
+
 
   transition(to:any) {
     switch (to) {
+      case States.IDLE:
+        let a = JackdVersion();
+        //sendLog(a.command);
+        break;
       case States.CONNECTED:
         break;
       default:
@@ -42,25 +60,36 @@ export default class TestStateMachine extends Component {
      return <img src={img} alt="PCMA. logo" />;
   }
 
+  renderText(text:string){
+    return <div> <MyTextArea greeting={text}/></div>;
+  }
+
   renderInit() {
+
+    let text = "@INIT - initializing to start the app...";
+
     return (
       <div>
         {this.renderDiagram()}
-
-        <p>@INIT - initializing to start the app... </p>
+        <p> {text} </p>
         {/* here go to idle immediately... */}
         <button onClick={() => this.transition(States.IDLE)}>
           mimic going to the next stage upon click
         </button>
+        {this.renderText(text)}
       </div>
-    );
+          
+     );
   }
 
   renderIdle() {
+
+    let text = "@IDLE";
+
     return (
       <div>
         {this.renderDiagram()}
-        <p>@IDLE </p>
+        <p> {text} </p>
         <button onClick={() => this.transition(States.FIN)}>
           exit the app{" "}
         </button>
@@ -68,24 +97,28 @@ export default class TestStateMachine extends Component {
         <button onClick={() => this.transition(States.CONNECTED)}>
           Connect
         </button>
+        
       </div>
     );
   }
 
   renderConnected() {
+    let text = "@CONNECTED";
+
     return (
       <div>
         {this.renderDiagram()}
-        <p>@CONNECTED </p>
+        <p>{text} </p>
         <button onClick={() => this.transition(States.IDLE)}>Disconnect</button>
       </div>
     );
   }
   renderFinish() {
+    let text = "@FINISH - end of app"
     return (
       <div>
         {this.renderDiagram()}
-        <p>@FINISH - end of app</p>
+        <p>{text} </p>
         <button onClick={() => this.transition(States.INIT)}>
           Go back to init
         </button>
