@@ -11,9 +11,27 @@ before checking in remove these folders:
 
 
 ---------------------------------------
+todo
+---------------------------------------
+- add debug options
+- if submit is clicked display alert
+- create another window from main window 
+
+
+
+
+
+---------------------------------------
 personal note 
 ---------------------------------------
 
+yarn
+yarn start
+
+
+old
+
+.......
 npm init -y
 npm install electron --save-dev
 

@@ -5,8 +5,8 @@ let subWindow: any; //todo this will be the settings window
 
 const createWindow = () => {
     mainWindow = new BrowserWindow({
-    width: 500,
-    height: 200,
+    width: 1000,
+    height: 1000,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false
