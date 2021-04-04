@@ -17,6 +17,7 @@
     "typescript": "^4.2.3"
   },
   "dependencies": {
+    "@types/log4js": "^2.3.5",
     "boolean": "^3.0.2",
     "buffer-crc32": "^0.2.13",
     "buffer-from": "^1.1.1",
@@ -55,6 +56,7 @@
     "jsonfile": "^4.0.0",
     "keyv": "^3.1.0",
     "lodash": "^4.17.21",
+    "log4js": "^6.3.0",
     "lowercase-keys": "^1.0.1",
     "lru-cache": "^6.0.0",
     "matcher": "^3.0.0",

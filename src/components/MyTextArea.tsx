@@ -6,7 +6,7 @@ export default class MyTextarea extends Component <any, any>{
 
     this.state = {
       memo: this.props.greeting,
-
+      outputLogRef: this.props.outputLogRef
     };
     this.handleChange = this.handleChange.bind(this);
     this.show = this.show.bind(this);
@@ -33,7 +33,8 @@ export default class MyTextarea extends Component <any, any>{
           name="memo"
           cols={30}
           rows={7}
-          value={this.state.memo}
+           value={this.state.memo}
+           ref = {this.state.outputLogRef}
           onChange={this.handleChange}
         ></textarea>
         <br />

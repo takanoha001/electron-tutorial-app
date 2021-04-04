@@ -2,6 +2,14 @@ import React, { Component } from "react";
 import { handleInitialize, JackdVersion } from "../Lib";
 import { ChildProcessWithoutNullStreams } from 'child_process';
 
+import { configure, getLogger } from "log4js";
+
+//dislikes the relative path
+let file = __dirname + "/../../log4js.config.json"
+configure(file);
+
+const logger = getLogger();
+
 import MyTextArea from "./MyTextArea";
 
 const States = {
@@ -11,23 +19,23 @@ const States = {
   FIN: 3,
 };
 
+
+let globalText = "lala";
+
  
-
-
-//const outputLogRef = React.useRef<HTMLTextAreaElement>(null);
-let outputLogRef = React.createRef<HTMLTextAreaElement>();
- 
-
-
 export default class TestStateMachine extends Component {  
   state = {
     current: States.INIT,
     textAreaValue: "init",
-    greeting:'hello from test machine'
+    greeting:'hello from test machine',
+    //outputLogRef: React.createRef<HTMLTextAreaElement>()
   }; 
 
-
+ 
   transition(to:any) {
+    console.log("console: transition()" + to);
+    logger.debug("logger: transition()" + to);
+
     switch (to) {
       case States.IDLE:
         let a = JackdVersion();
@@ -60,8 +68,10 @@ export default class TestStateMachine extends Component {
      return <img src={img} alt="PCMA. logo" />;
   }
 
-  renderText(text:string){
-    return <div> <MyTextArea greeting={text}/></div>;
+  renderText(text:string)
+  {
+    globalText += "lalala";
+    return <div> <MyTextArea greeting={globalText}/></div>;
   }
 
   renderInit() {
