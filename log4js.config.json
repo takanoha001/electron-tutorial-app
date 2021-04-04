@@ -17,7 +17,7 @@
     },
     "info_raw": {
       "type": "file",
-      "filename": "logs/app.log",
+      "filename": "logs/debug.log",
       "layout": {
         "type": "pattern",
         "pattern": "[%d{yyyy-MM-dd hh:mm:ss.SSS}] [%p] %m"
@@ -26,7 +26,7 @@
     "info": { "type": "logLevelFilter", "appender": "info_raw", "level": "info" },
     "error_raw": {
       "type": "file",
-      "filename": "logs/error.log",
+      "filename": "logs/debug.log",
       "layout": {
         "type": "pattern",
         "pattern": "[%d{yyyy-MM-dd hh:mm:ss.SSS}] [%p] %m%n%f %l %o%n%s"

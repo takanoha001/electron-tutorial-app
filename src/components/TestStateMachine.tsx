@@ -2,13 +2,11 @@ import React, { Component } from "react";
 import { handleInitialize, JackdVersion } from "../Lib";
 import { ChildProcessWithoutNullStreams } from 'child_process';
 
+///////////
 import { configure, getLogger } from "log4js";
-
-//dislikes the relative path
-let file = __dirname + "/../../log4js.config.json"
-configure(file);
-
 const logger = getLogger();
+//////////
+
 
 import MyTextArea from "./MyTextArea";
 
@@ -33,8 +31,10 @@ export default class TestStateMachine extends Component {
 
  
   transition(to:any) {
-    console.log("console: transition()" + to);
-    logger.debug("logger: transition()" + to);
+    logger.debug(" dbg : transition()" + to);
+    //logger.error(" err : transition()" + to);
+    logger.info("logger: transition()" + to);
+
 
     switch (to) {
       case States.IDLE:
