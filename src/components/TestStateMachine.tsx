@@ -39,6 +39,7 @@ export default class TestStateMachine extends Component {
     switch (to) {
       case States.IDLE:
         let a = JackdVersion();
+        let b = handleInitialize();
         //sendLog(a.command);
         break;
       case States.CONNECTED:
