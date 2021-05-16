@@ -1,3 +1,20 @@
+
+
+---------------------------------------
+deployment
+---------------------------------------
+  505  yarn build
+  517  yarn
+  518  yarn start
+  522  npx electron-builder --mac --x64 --dir
+  523  open dist/mac/MyApp.app
+
+https://maku.blog/p/2tcs8n2/
+
+note:
+- problem with log4js
+- make sure to include build directories inside package.json
+
 ---------------------------------------
 instruction
 ---------------------------------------
