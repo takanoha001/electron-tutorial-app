@@ -3,8 +3,8 @@ import { handleInitialize, JackdVersion } from "../Lib";
 import { ChildProcessWithoutNullStreams } from 'child_process';
 
 ///////////
-import { configure, getLogger } from "log4js";
-const logger = getLogger();
+// import { configure, getLogger } from "log4js";
+// const logger = getLogger();
 //////////
 
 
@@ -31,9 +31,9 @@ export default class TestStateMachine extends Component {
 
  
   transition(to:any) {
-    logger.debug(" dbg : transition()" + to);
+    // logger.debug(" dbg : transition()" + to);
     //logger.error(" err : transition()" + to);
-    logger.info("logger: transition()" + to);
+    // logger.info("logger: transition()" + to);
 
 
     switch (to) {

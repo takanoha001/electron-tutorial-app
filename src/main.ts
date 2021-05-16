@@ -1,18 +1,18 @@
 import { app, BrowserWindow, Menu } from 'electron';
 
-import { configure, getLogger } from "log4js";
+// import { configure, getLogger } from "log4js";
 
 //dislikes the relative path
-let file = __dirname + "/../log4js.config.json"
-configure(file);
+// let file = __dirname + "/../log4js.config.json"
+// configure(file);
 
-const logger = getLogger();
+// const logger = getLogger();
 
 let mainWindow: any;
 let subWindow: any; //todo this will be the settings window
 
 const createWindow = () => {
-    logger.info("createWindow");
+    // logger.info("createWindow");
     mainWindow = new BrowserWindow({
     width: 1000,
     height: 1000,
