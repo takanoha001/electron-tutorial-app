@@ -1,5 +1,69 @@
 
 
+
+---------------------------------------
+deployment
+---------------------------------------
+rm -rf build
+rm -rf dist
+
+yarn start
+npx electron-builder --mac --x64 --dir
+
+
+if I don't call yarn start it complains
+
+
+
+---------------------------------------
+deployment
+---------------------------------------
+
+"build": {
+    "extends": null,
+    "npmRebuild": false,
+    "appId": "com.example.myapp",
+    "productName": "MyApp",
+    "files": [
+      "build/**/*",
+      "public/**/*",
+      "src/images/**/*"
+    ],
+    "extraResources": [
+      "cpp_program/**/*"
+    ],
+    "asar": false
+  },
+
+const GetLocalPath = () => {
+
+// regular build: yarn start works
+//  const path = __dirname + "/../cpp_program/"
+//  debug: helloWorld path: /Users/Dicekay/projects/pcma/github/tutorial/electron-tutorial-app/build/../cpp_program/helloWorld
+
+//production:  npx electron-builder --mac --x64 --dir doesn't work
+// const path = __dirname + "/../../cpp_program/"
+// dist//mac/MyApp.app/Contents/Resources/cpp_program/helloWorld
+// debug: helloWorld path: /Users/Dicekay/projects/pcma/github/tutorial/electron-tutorial-app/dist/mac/MyApp.app/Contents/Resources/app/build/../../cpp_program/helloWorld
+
+
+
+  515  ls -alF  /Users/Dicekay/projects/pcma/github/tutorial/electron-tutorial-app/dist/mac/MyApp.app/Contents/Resources/app/build/../cpp_program/helloWorld
+  516  ls -alF  /Users/Dicekay/projects/pcma/github/tutorial/electron-tutorial-app/dist/mac/MyApp.app/Contents/Resources/app/build/../cpp_program/helloWorld
+  517  find dist/ -name "helloWorldRepeat"
+  518  ls -alF dist//mac/MyApp.app/Contents/Resources/app/build/mac/bin/helloWorldRepeat
+  519  ls -alF dist//mac/MyApp.app/Contents/Resources/cpp_program/helloWorldRepeat
+  520  rm -rf dist/
+
+  539  find dist/ -name "helloWorld"
+  540  yarn
+  541  yarn start
+  542  rm -rf dist/
+  543   npx electron-builder --mac --x64 --dir
+  544  find dist/ -name "helloWorld"
+
+  546  open dist/mac/MyApp.app 
+
 ---------------------------------------
 deployment
 ---------------------------------------
@@ -14,6 +78,78 @@ https://maku.blog/p/2tcs8n2/
 note:
 - problem with log4js
 - make sure to include build directories inside package.json
+
+
+can't call spawn and spawnsync because it doesn't know where the binary files are
+
+
+
+/Users/Dicekay/projects/pcma/github/tutorial/electron-tutorial-app
+
+- yarn start works
+- npx electron-builder worked if the path to the binary is hardcoded
+
+
+
+/Users/Dicekay/projects/pcma/github/tutorial/pcma4
+
+- yarn start works
+- npx fails. it gets stuck at white screen. 
+
+
+/Users/Dicekay/projects/pcma/github/tutorial/pcma4_backup_0517
+
+- updated package.json, figuring how to use "build" for 
+- updated main.tsx figuring loadURL and loadFile. loadURL seems to work just fine
+
+npx electron-builder --mac --x64 --dir
+yarn start
+
+
+
+
+example build
+
+"build": {
+    "extends": null,
+    "appId": "com.pcma.allabreve",
+    "productName": "AllaBreve",
+    "npmRebuild": false,
+    "files": [
+      "build/main.js",
+      "node_modules/",
+      "public/index.html",
+      "dist/**/*",
+      "build/**/*",
+      "public/**/*",
+      "src/images/**/*",
+      "jack_bin/**/*",
+      "package.json"
+    ],
+    "dmg": {
+      "contents": [
+        {
+          "x": 130,
+          "y": 220
+        },
+        {
+          "x": 410,
+          "y": 220,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    },
+    "directories": {
+      "buildResources": "resources",
+      "output": "release"
+    },
+    "extraResources": [
+      "./resources/**"
+    ]
+  },
+
+
 
 ---------------------------------------
 instruction

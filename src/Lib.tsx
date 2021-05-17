@@ -2,6 +2,24 @@
 
 import { spawnSync, spawn } from "child_process";
 
+
+let Production = () => {
+  if(__dirname.includes(".app")) {
+    console.log("PRODUCTION");
+    return true
+  }
+  else
+  {
+    console.log("DEVELOPMENT");
+    return false;
+  }
+}
+
+
+// const ffmpegpath=path.join(__dirname, '../node_modules/ffmpeg-static/ffmpeg');
+
+
+
 /**
  * JackdVersion
  * 
@@ -89,11 +107,41 @@ export function listing(){
   }
 }
 
-export function helloWorld(){
-  let dir = "/Users/Dicekay/projects/pcma/github/tutorial/electron-tutorial-app/cpp_program";
-  let cmd = "helloWorld"
+const GetLocalPath = () => {
 
-  let comm = dir+ "/"+cmd;
+// regular build: yarn start works
+//  const path = __dirname + "/../cpp_program/"
+//  debug: helloWorld path: /Users/Dicekay/projects/pcma/github/tutorial/electron-tutorial-app/build/../cpp_program/helloWorld
+
+//production:  npx electron-builder --mac --x64 --dir doesn't work
+// const path = __dirname + "/../../cpp_program/"
+// dist//mac/MyApp.app/Contents/Resources/cpp_program/helloWorld
+// debug: helloWorld path: /Users/Dicekay/projects/pcma/github/tutorial/electron-tutorial-app/dist/mac/MyApp.app/Contents/Resources/app/build/../../cpp_program/helloWorld
+
+  let path = "";
+  if(Production()){
+    path =  __dirname + "/../../cpp_program/";
+  } else{
+    path =  __dirname + "/../cpp_program/";
+  }
+
+  console.log ("path: " + path);
+
+  return {
+    helloWorld: path+ "helloWorld",
+    helloWorldRepeat: path+ "helloWorldRepeat"
+  }
+}
+
+export function helloWorld(){
+  // let dir = "/Users/Dicekay/projects/pcma/github/tutorial/electron-tutorial-app/cpp_program";
+  // let cmd = "helloWorld"
+  // let comm = dir+ "/"+cmd;
+  let comm = GetLocalPath().helloWorld;
+
+
+  console.log("debug: helloWorld path: "+ comm);
+
   let params = [""];
 
   const chd = spawnSync(comm , params);
@@ -106,10 +154,17 @@ export function helloWorld(){
 
 export function helloWorldRepeat(){
 
-  let dir = "/Users/Dicekay/projects/pcma/github/tutorial/electron-tutorial-app/cpp_program";
-  let cmd = "helloWorldRepeat"
+  //this way works with "npx electron-builder --mac --x64 --dir" and "yarn start"
+  //
+  // let dir = "/Users/Dicekay/projects/pcma/github/tutorial/electron-tutorial-app/cpp_program";
+  // let cmd = "helloWorldRepeat"
+  // let comm = dir+ "/"+cmd;
 
-  let comm = dir+ "/"+cmd;
+// This way doesn't work with npx electron-builder --mac --x64 --dir but works with "yarn start"
+//
+let comm = GetLocalPath().helloWorldRepeat;
+
+
   let params = [""];
 
   return {
@@ -134,6 +189,7 @@ export function startJacktrip(){
 
 
 import { ChildProcessWithoutNullStreams } from 'child_process';
+import path from "node:path";
 
 const sendOutput = (output: ChildProcessWithoutNullStreams | string) =>
 {
