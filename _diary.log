@@ -13,7 +13,9 @@ npx electron-builder --mac --x64 --dir
 
 if I don't call yarn start it complains
 
-
+to create DMG file:
+  yarn start
+  npm run pack:osx
 
 ---------------------------------------
 deployment
@@ -32,6 +34,13 @@ deployment
     "extraResources": [
       "cpp_program/**/*"
     ],
+    "mac": {
+        "target": "dmg"
+    },
+    "directories": {
+        "output": "docs"
+    }
+
     "asar": false
   },
 

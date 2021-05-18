@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "build/main.js",
   "scripts": {
-    "start": "tsc && electron ."
+    "start": "tsc && electron .",
+    "pack:osx": "electron-builder --mac --x64"
   },
   "build": {
     "extends": null,
